@@ -658,8 +658,8 @@ export default function AulasAnalyzer() {
       <div className="max-w-7xl mx-auto">
         <div className="bg-white rounded-xl md:rounded-2xl shadow-2xl p-4 md:p-8">
           <div className="text-center mb-6 md:mb-8">
-            <h1 className="text-2xl md:text-4xl font-bold text-gray-800 mb-2">
-              📊 Disponibilidad de Aulas
+            <h1 className="text-2xl md:text-4xl font-bold text-gray-800 mb-2 flex items-center justify-center gap-3">
+              <i className="fa-solid fa-chart-simple text-indigo-600"></i> Disponibilidad de Aulas
             </h1>
             <p className="text-sm md:text-base text-gray-600">
               Vista completa de ocupación por aula y día - ISAM
@@ -1013,7 +1013,7 @@ export default function AulasAnalyzer() {
                   <span>1 clase</span>
                 </div>
                 <div className="flex items-center gap-1.5 md:gap-2">
-                  <div className="w-3 h-3 md:w-4 md:h-4 bg-red-100 border border-red-300 rounded"></div>
+                  <div className="w-3 h-3 md:w-4 md:h-4 bg-red-200 border border-red-300 rounded"></div>
                   <span>2+ clases</span>
                 </div>
               </div>
