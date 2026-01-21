@@ -1030,9 +1030,9 @@ export default function AulasAnalyzer() {
                         {results.dates.map((dateInfo, idx) => (
                           <th
                             key={idx}
-                            className="px-2 md:px-4 py-2 md:py-3 text-center text-[9px] md:text-xs font-bold text-gray-700 uppercase tracking-wider whitespace-nowrap min-w-[70px] md:min-w-[100px]"
+                            className="px-1 md:px-2 py-2 md:py-3 text-center text-[9px] md:text-xs font-bold text-gray-700 uppercase tracking-wider whitespace-nowrap min-w-[60px] md:min-w-[80px]"
                           >
-                            <div className="text-indigo-600 font-bold">{dateInfo.dayName.substring(0, 3)}<span className="hidden md:inline">{dateInfo.dayName.substring(3)}</span></div>
+                            <div className="text-indigo-600 font-bold">{dateInfo.dayName.substring(0, 3)}</div>
                             <div className="text-gray-600 text-[8px] md:text-xs">{dateInfo.date}</div>
                           </th>
                         ))}
@@ -1052,7 +1052,7 @@ export default function AulasAnalyzer() {
                             return (
                               <td
                                 key={colIdx}
-                                className={'px-1.5 md:px-4 py-2 md:py-3 text-[9px] md:text-sm text-center whitespace-nowrap ' + getCellStyle(count)}
+                                className={'px-1 md:px-2 py-2 md:py-3 text-[9px] md:text-sm text-center whitespace-nowrap ' + getCellStyle(count)}
                               >
                                 <span className="md:hidden">{count === 0 ? '✓' : count}</span>
                                 <span className="hidden md:inline">{getCellText(count)}</span>
