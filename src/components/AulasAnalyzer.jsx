@@ -540,8 +540,8 @@ export default function AulasAnalyzer() {
   const getCellStyle = (count) => {
     if (count === 0) return 'bg-green-100 text-green-800 font-semibold';
     if (count === 1) return 'bg-yellow-100 text-yellow-800';
-    // Rojo más nítido y alto contraste para daltonismo (2+ clases)
-    return 'bg-red-600 text-white font-bold shadow-sm';
+    // Rojo suave pero con buen contraste para daltonismo (2+ clases)
+    return 'bg-red-200 text-red-900 font-bold border border-red-300 shadow-sm';
   };
 
   const getCellText = (count) => {
