@@ -5,33 +5,38 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
   res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
-  
+
   // Manejar OPTIONS request
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
-  
+
   // Solo permitir POST
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Método no permitido' });
   }
 
   // Verificar que venga la clave de admin
-  const { adminKey, data, uploadDateTime } = req.body;
-  
+  const { adminKey, data, uploadDateTime, aulas } = req.body;
+
   if (adminKey !== process.env.ADMIN_KEY) {
     return res.status(403).json({ error: 'No autorizado' });
   }
 
   try {
+    if (!data || !uploadDateTime) {
+      return res.status(400).json({ error: 'Faltan datos obligatorios (data o uploadDateTime)' });
+    }
+
     const gistData = {
       data,
       uploadDateTime,
+      aulas: aulas || [],
       timestamp: new Date().toISOString()
     };
 
     const jsonContent = JSON.stringify(gistData, null, 2);
-    
+
     // Actualizar el Gist
     const response = await fetch(`https://api.github.com/gists/${process.env.GIST_ID}`, {
       method: 'PATCH',
@@ -51,8 +56,8 @@ export default async function handler(req, res) {
 
     if (response.ok) {
       const result = await response.json();
-      return res.status(200).json({ 
-        success: true, 
+      return res.status(200).json({
+        success: true,
         message: 'Gist actualizado correctamente',
         gistId: process.env.GIST_ID,
         url: result.html_url
@@ -63,9 +68,9 @@ export default async function handler(req, res) {
     }
   } catch (error) {
     console.error('Error:', error);
-    return res.status(500).json({ 
-      error: 'Error al actualizar el Gist', 
-      details: error.message 
+    return res.status(500).json({
+      error: 'Error al actualizar el Gist',
+      details: error.message
     });
   }
 }
