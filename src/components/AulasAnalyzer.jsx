@@ -563,49 +563,58 @@ export default function AulasAnalyzer() {
 
     let filtered = results.matrix;
 
-    // Filtro de búsqueda (buscar tanto en email como en nombre formateado)
+    // Filtro de búsqueda inteligente
     if (searchTerm) {
       const search = searchTerm.toLowerCase();
       const cleanSearch = search.replace(/\s+/g, '');
+      const isIdSearch = /^\d{9,}$/.test(cleanSearch);
 
-      filtered = filtered.filter(row => {
+      return filtered.map(row => {
         const email = row.aula.toLowerCase();
         const formattedName = formatAulaName(row.aula).toLowerCase();
 
-        // Coincidencia con nombre/email del aula
+        // Si buscamos por nombre de aula, mostramos todos sus datos originales
         const matchesAula = email.includes(search) || formattedName.includes(search);
-
-        // Coincidencia con Meeting ID en el raw data para esta aula
-        const matchesMeetingId = data.some(d => {
-          const meetingEmail = (d['Correo Electrónico del anfitrión'] || d['Correo_Electrónico_del_anfitrión'] || '').trim();
-          if (meetingEmail.toLowerCase() !== email) return false;
-
-          // Búsqueda UNIVERSAL en todos los campos: Escanear todas las columnas por si acaso
-          // Esto soluciona problemas si el header cambia o si el ID tiene espacios (ej. 838 2542 1417)
-          return Object.values(d).some(val => {
-            if (!val) return false;
-
-            // Normalizar el valor de la celda: quitar todo lo que no sea número
-            const valStr = String(val).replace(/\D/g, '');
-            if (valStr.length < 5) return false; // Evitar falsos positivos con números pequeños o vacíos
-
-            // Si el término de búsqueda es numérico largo (ID de reunión)
-            if (cleanSearch.length >= 9 && /^\d+$/.test(cleanSearch)) {
-              return valStr === cleanSearch;
-            }
-
-            // Búsqueda parcial si no es un ID completo
-            return valStr.includes(cleanSearch);
-          });
-        });
-
-        // Si es una búsqueda de ID estricta (más de 8 dígitos)
-        if (/^\d{9,}$/.test(cleanSearch)) {
-          return matchesMeetingId;
+        if (matchesAula && !isIdSearch && cleanSearch.length < 9) {
+          return row;
         }
 
-        return matchesAula || matchesMeetingId;
-      });
+        // Si es búsqueda por ID o texto específico, filtramos las celdas individualmente
+        const filteredRow = { ...row };
+        let hasAnyMeetingMatch = false;
+        let totalFilteredClases = 0;
+
+        results.dates.forEach(dateInfo => {
+          // Filtramos las reuniones de esta aula/fecha que coinciden con la búsqueda
+          const matchingMeetings = data.filter(d => {
+            const meetingEmail = (d['Correo Electrónico del anfitrión'] || d['Correo_Electrónico_del_anfitrión'] || '').trim();
+            if (meetingEmail.toLowerCase() !== email) return false;
+
+            const parsed = parseDateTime(d['Hora de inicio'] || d['Hora_de_inicio'] || d['Hora_de _inicio']);
+            if (!parsed || parsed.date !== dateInfo.date) return false;
+            if (!isInTurno(parsed.time, selectedTurno)) return false;
+
+            return Object.values(d).some(val => {
+              if (!val) return false;
+              if (isIdSearch) {
+                const valStr = String(val).replace(/\D/g, '');
+                return valStr === cleanSearch;
+              }
+              const valStr = String(val).toLowerCase();
+              return valStr.includes(search);
+            });
+          });
+
+          filteredRow[dateInfo.date] = matchingMeetings.length;
+          totalFilteredClases += matchingMeetings.length;
+          if (matchingMeetings.length > 0) hasAnyMeetingMatch = true;
+        });
+
+        filteredRow.totalClases = totalFilteredClases;
+
+        // Solo mostrar la fila si hay al menos una coincidencia en alguna celda
+        return hasAnyMeetingMatch ? filteredRow : null;
+      }).filter(Boolean);
     }
 
     // Filtro de estado
