@@ -540,8 +540,8 @@ export default function AulasAnalyzer() {
   const getCellStyle = (count) => {
     if (count === 0) return 'bg-green-100 text-green-800 font-semibold';
     if (count === 1) return 'bg-yellow-100 text-yellow-800';
-    // Rojo suave pero con buen contraste para daltonismo (2+ clases)
-    return 'bg-red-200 text-red-900 font-bold border border-red-300 shadow-sm';
+    // Rojo nítido con opacidad controlada para daltonismo (2+ clases)
+    return 'bg-red-600/70 text-white font-bold shadow-sm border border-red-700/30';
   };
 
   const getCellText = (count) => {
@@ -580,25 +580,23 @@ export default function AulasAnalyzer() {
           const meetingEmail = (d['Correo Electrónico del anfitrión'] || d['Correo_Electrónico_del_anfitrión'] || '').trim();
           if (meetingEmail.toLowerCase() !== email) return false;
 
-          // Extraer ID de la reunión de múltiples campos posibles
-          const rawMeetingId = d['ID de la reunión'] ||
-            d['ID_de_la_reunión'] ||
-            d['ID_de _la_reunión'] ||
-            d['ID del seminario web'] ||
-            d['ID_del_seminario_web'] ||
-            d['ID del seminario'] ||
-            '';
+          // Búsqueda UNIVERSAL en todos los campos: Escanear todas las columnas por si acaso
+          // Esto soluciona problemas si el header cambia o si el ID tiene espacios (ej. 838 2542 1417)
+          return Object.values(d).some(val => {
+            if (!val) return false;
 
-          // Normalizar ID (solo números)
-          const meetingIdNormal = String(rawMeetingId).replace(/\D/g, '');
+            // Normalizar el valor de la celda: quitar todo lo que no sea número
+            const valStr = String(val).replace(/\D/g, '');
+            if (valStr.length < 5) return false; // Evitar falsos positivos con números pequeños o vacíos
 
-          // Si el término de búsqueda es numérico largo (ID de reunión)
-          if (/^\d{9,}$/.test(cleanSearch)) {
-            return meetingIdNormal === cleanSearch;
-          }
+            // Si el término de búsqueda es numérico largo (ID de reunión)
+            if (cleanSearch.length >= 9 && /^\d+$/.test(cleanSearch)) {
+              return valStr === cleanSearch;
+            }
 
-          // Búsqueda parcial si no es un ID completo
-          return meetingIdNormal.includes(cleanSearch);
+            // Búsqueda parcial si no es un ID completo
+            return valStr.includes(cleanSearch);
+          });
         });
 
         // Si es una búsqueda de ID estricta (más de 8 dígitos)
