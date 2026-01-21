@@ -340,7 +340,7 @@ export default function AulasAnalyzer() {
       const dayName = daysShort[daysOfWeek[dateObj.getDay()]];
 
       const formattedTime = hour.toString().padStart(2, '0') + ':' + minutes;
-      const sortKey = year + month + day + formattedTime.replace(':', '');
+      const sortKey = year + month + day; // Solo día para agrupar columnas
       const formattedDate = day + '/' + month; // Solo día/mes
 
       return {
