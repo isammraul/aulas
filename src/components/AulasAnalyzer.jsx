@@ -1027,8 +1027,8 @@ export default function AulasAnalyzer() {
                 </div>
               </div>
 
-              {/* Tabla */}
-              <div className="overflow-x-auto border border-gray-200 rounded-lg shadow-sm -mx-2 md:mx-0">
+              {/* Tabla con scroll interno para permitir encabezado fijo */}
+              <div className="overflow-auto border border-gray-200 rounded-lg shadow-sm -mx-2 md:mx-0 max-h-[75vh]">
                 <div className="inline-block min-w-full align-middle">
                   <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
