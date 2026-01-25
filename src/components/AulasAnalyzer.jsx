@@ -1033,19 +1033,19 @@ export default function AulasAnalyzer() {
                   <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                       <tr>
-                        <th className="sticky left-0 z-20 px-2 md:px-4 py-2 md:py-3 text-left text-[10px] md:text-xs font-bold text-gray-700 uppercase tracking-wider bg-gray-100 border-r-2 border-gray-300 min-w-[80px] md:min-w-[120px]">
+                        <th className="sticky left-0 top-0 z-30 px-2 md:px-4 py-2 md:py-3 text-left text-[10px] md:text-xs font-bold text-gray-700 uppercase tracking-wider bg-gray-100 border-r-2 border-gray-300 min-w-[80px] md:min-w-[120px]">
                           Aula
                         </th>
                         {results.dates.map((dateInfo, idx) => (
                           <th
                             key={idx}
-                            className="px-1 md:px-2 py-2 md:py-3 text-center text-[9px] md:text-xs font-bold text-gray-700 uppercase tracking-wider whitespace-nowrap min-w-[60px] md:min-w-[80px]"
+                            className="sticky top-0 z-20 px-1 md:px-2 py-2 md:py-3 text-center text-[9px] md:text-xs font-bold text-gray-700 uppercase tracking-wider whitespace-nowrap min-w-[60px] md:min-w-[80px] bg-gray-50"
                           >
                             <div className="text-indigo-600 font-bold">{dateInfo.dayName.substring(0, 3)}</div>
                             <div className="text-gray-600 text-[8px] md:text-xs">{dateInfo.date}</div>
                           </th>
                         ))}
-                        <th className="sticky right-0 z-10 px-2 md:px-4 py-2 md:py-3 text-center text-[10px] md:text-xs font-bold text-gray-700 uppercase tracking-wider bg-gray-100 border-l-2 border-gray-300 min-w-[50px] md:min-w-[70px]">
+                        <th className="sticky right-0 top-0 z-30 px-2 md:px-4 py-2 md:py-3 text-center text-[10px] md:text-xs font-bold text-gray-700 uppercase tracking-wider bg-gray-100 border-l-2 border-gray-300 min-w-[50px] md:min-w-[70px]">
                           Total
                         </th>
                       </tr>
