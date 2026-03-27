@@ -1029,10 +1029,10 @@ export default function AulasAnalyzer() {
                   <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                       <tr>
-                        <th className="sticky left-0 top-0 z-30 px-2 md:px-4 py-2 md:py-3 text-left text-[10px] md:text-xs font-bold text-gray-700 uppercase tracking-wider bg-gray-100 border-r-2 border-gray-300 min-w-[80px] md:min-w-[120px]">
+                        <th className="sticky left-0 top-0 z-30 px-1 md:px-2 py-2 md:py-3 text-center text-[10px] md:text-xs font-bold text-gray-700 uppercase tracking-wider bg-gray-100 border-r-2 border-gray-300 w-[45px] md:w-[55px] min-w-[45px] md:min-w-[55px]">
                           N°
                         </th>
-                        <th className="sticky left-0 top-0 z-30 px-2 md:px-4 py-2 md:py-3 text-left text-[10px] md:text-xs font-bold text-gray-700 uppercase tracking-wider bg-gray-100 border-r-2 border-gray-300 min-w-[80px] md:min-w-[120px]">
+                        <th className="sticky left-[45px] md:left-[55px] top-0 z-30 px-2 md:px-4 py-2 md:py-3 text-left text-[10px] md:text-xs font-bold text-gray-700 uppercase tracking-wider bg-gray-100 border-r-2 border-gray-300 min-w-[150px] md:min-w-[200px]">
                           Aula
                         </th>
                         {results.dates.map((dateInfo, idx) => (
@@ -1052,10 +1052,10 @@ export default function AulasAnalyzer() {
                     <tbody className="bg-white divide-y divide-gray-200">
                       {getFilteredMatrix().map((row, rowIdx) => (
                         <tr key={rowIdx} className="hover:bg-gray-50">
-                          <td className="sticky left-0 z-10 px-2 md:px-4 py-2 md:py-3 text-[10px] md:text-sm font-medium text-gray-900 bg-white border-r-2 border-gray-200 whitespace-nowrap">
+                          <td className="sticky left-0 z-10 px-1 md:px-2 py-2 md:py-3 text-[10px] md:text-sm font-medium text-gray-900 bg-white border-r-2 border-gray-200 whitespace-nowrap text-center w-[45px] md:w-[55px]">
                             {rowIdx + 1}
                           </td>
-                          <td className="sticky left-0 z-10 px-2 md:px-4 py-2 md:py-3 text-[10px] md:text-sm font-medium text-gray-900 bg-white border-r-2 border-gray-200 whitespace-nowrap">
+                          <td className="sticky left-[45px] md:left-[55px] z-10 px-2 md:px-4 py-2 md:py-3 text-[10px] md:text-sm font-medium text-gray-900 bg-white border-r-2 border-gray-200 whitespace-nowrap">
                             {formatAulaName(row.aula)}
                           </td>
                           {results.dates.map((dateInfo, colIdx) => {
