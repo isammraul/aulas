@@ -13,6 +13,7 @@ export default function AulasAnalyzer() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('todos');
   const [filterDate, setFilterDate] = useState('todos');
+  const [filterFromDate, setFilterFromDate] = useState('todos');
   const [showStats, setShowStats] = useState(false);
   const [gistId, setGistId] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -661,7 +662,12 @@ export default function AulasAnalyzer() {
       }
 
       // Encontrar todas las fechas que coinciden con los nombres de día seleccionados
-      const matchingDates = results.dates.filter(d => targetDayNames.includes(d.dayName));
+      let matchingDates = results.dates.filter(d => targetDayNames.includes(d.dayName));
+
+      // Aplicar filtro de "Evaluar desde" (Planificación)
+      if (filterFromDate !== 'todos') {
+        matchingDates = matchingDates.filter(d => d.date >= filterFromDate);
+      }
 
       if (matchingDates.length > 0) {
         if (filterStatus === 'libres') {
@@ -1062,36 +1068,62 @@ export default function AulasAnalyzer() {
 
                 {/* Filtro de Frecuencia/Días (Solo si hay un estado seleccionado) */}
                 {filterStatus !== 'todos' && (
-                  <select
-                    value={filterDate}
-                    onChange={(e) => setFilterDate(e.target.value)}
-                    className="px-2 md:px-4 py-2 border border-indigo-300 rounded-lg bg-indigo-50 text-xs md:text-sm text-indigo-700 font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500 animate-in fade-in zoom-in duration-200"
-                  >
-                    <option value="todos">Solo {results.dates[0]?.dayName}</option>
-                    <optgroup label="Días Individuales">
-                      {Array.from(new Set(results.dates.map(d => d.dayName))).map((day, idx) => (
-                        <option key={idx} value={day}>{day}</option>
+                  <div className="flex flex-col gap-1.5 md:col-span-1 lg:col-span-1">
+                    <select
+                      value={filterDate}
+                      onChange={(e) => {
+                        setFilterDate(e.target.value);
+                        if (e.target.value === 'todos') setFilterFromDate('todos');
+                      }}
+                      className="px-2 md:px-4 py-2 border border-indigo-300 rounded-lg bg-indigo-50 text-xs md:text-sm text-indigo-700 font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500 w-full"
+                    >
+                      <option value="todos">Solo {results.dates[0]?.dayName}</option>
+                      <optgroup label="Días Individuales">
+                        {Array.from(new Set(results.dates.map(d => d.dayName))).map((day, idx) => (
+                          <option key={idx} value={day}>{day}</option>
+                        ))}
+                      </optgroup>
+                      <optgroup label="Frecuencias">
+                        <option value="LUN-MIE-VIE">LUN-MIE-VIE</option>
+                        <option value="MAR-JUE">MAR-JUE</option>
+                        <option value="LUN-VIE">LUN a VIE</option>
+                      </optgroup>
+                    </select>
+                  </div>
+                )}
+
+                {/* Filtro de Planificación (Desde qué fecha evaluar) */}
+                {filterStatus !== 'todos' && filterDate !== 'todos' && (
+                  <div className="flex flex-col gap-1.5 md:col-span-1 lg:col-span-1 animate-in slide-in-from-left-2 duration-200">
+                    <select
+                      value={filterFromDate}
+                      onChange={(e) => setFilterFromDate(e.target.value)}
+                      className="px-2 md:px-4 py-2 border border-orange-300 rounded-lg bg-orange-50 text-[10px] md:text-xs text-orange-700 font-bold focus:outline-none focus:ring-2 focus:ring-orange-500 w-full"
+                      title="Evaluar disponibilidad a partir de esta fecha"
+                    >
+                      <option value="todos">Evaluar desde hoy</option>
+                      {results.dates.slice(1).map((dateInfo, idx) => (
+                        <option key={idx} value={dateInfo.date}>
+                          Desde {dateInfo.dayName} ({dateInfo.date})
+                        </option>
                       ))}
-                    </optgroup>
-                    <optgroup label="Frecuencias">
-                      <option value="LUN-MIE-VIE">LUN-MIE-VIE</option>
-                      <option value="MAR-JUE">MAR-JUE</option>
-                      <option value="LUN-VIE">LUN a VIE</option>
-                    </optgroup>
-                  </select>
+                    </select>
+                  </div>
                 )}
 
                 {/* Filtro de Turno */}
-                <select
-                  value={selectedTurno}
-                  onChange={handleTurnoChange}
-                  className="px-2 md:px-4 py-2 border border-gray-300 rounded-lg bg-white text-xs md:text-sm text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 w-full"
-                >
-                  <option value="todos">Todos los Turnos</option>
-                  <option value="manana">Mañana</option>
-                  <option value="tarde">Tarde</option>
-                  <option value="noche">Noche</option>
-                </select>
+                <div className="flex flex-col gap-1.5 md:col-span-1 lg:col-span-1">
+                  <select
+                    value={selectedTurno}
+                    onChange={handleTurnoChange}
+                    className="px-2 md:px-4 py-2 border border-gray-300 rounded-lg bg-white text-xs md:text-sm text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 w-full"
+                  >
+                    <option value="todos">Todos los Turnos</option>
+                    <option value="manana">Mañana (7am - 1pm)</option>
+                    <option value="tarde">Tarde (1pm - 5pm)</option>
+                    <option value="noche">Noche (5pm - 12am)</option>
+                  </select>
+                </div>
               </div>
 
               {/* Leyenda */}
