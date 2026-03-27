@@ -790,7 +790,7 @@ export default function AulasAnalyzer() {
                 <form onSubmit={handleLogin}>
                   <input
                     type="password"
-                    placeholder="Introduce la clave maestra"
+                    placeholder="isam123"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="w-full p-2 border rounded mb-4"
