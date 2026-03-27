@@ -551,11 +551,7 @@ export default function AulasAnalyzer() {
 
   const formatAulaName = (email) => {
     if (!email) return '';
-    const parts = email.split('@');
-    if (parts.length < 2) return email.split('@')[0];
-    const domain = parts[1];
-    const maskedDomain = domain.substring(0, 4) + '*****';
-    return `${parts[0]}@${maskedDomain}`;
+    return email;
   };
 
   const getFilteredMatrix = () => {
@@ -1034,6 +1030,9 @@ export default function AulasAnalyzer() {
                     <thead className="bg-gray-50">
                       <tr>
                         <th className="sticky left-0 top-0 z-30 px-2 md:px-4 py-2 md:py-3 text-left text-[10px] md:text-xs font-bold text-gray-700 uppercase tracking-wider bg-gray-100 border-r-2 border-gray-300 min-w-[80px] md:min-w-[120px]">
+                          N°
+                        </th>
+                        <th className="sticky left-0 top-0 z-30 px-2 md:px-4 py-2 md:py-3 text-left text-[10px] md:text-xs font-bold text-gray-700 uppercase tracking-wider bg-gray-100 border-r-2 border-gray-300 min-w-[80px] md:min-w-[120px]">
                           Aula
                         </th>
                         {results.dates.map((dateInfo, idx) => (
@@ -1053,6 +1052,9 @@ export default function AulasAnalyzer() {
                     <tbody className="bg-white divide-y divide-gray-200">
                       {getFilteredMatrix().map((row, rowIdx) => (
                         <tr key={rowIdx} className="hover:bg-gray-50">
+                          <td className="sticky left-0 z-10 px-2 md:px-4 py-2 md:py-3 text-[10px] md:text-sm font-medium text-gray-900 bg-white border-r-2 border-gray-200 whitespace-nowrap">
+                            {rowIdx + 1}
+                          </td>
                           <td className="sticky left-0 z-10 px-2 md:px-4 py-2 md:py-3 text-[10px] md:text-sm font-medium text-gray-900 bg-white border-r-2 border-gray-200 whitespace-nowrap">
                             {formatAulaName(row.aula)}
                           </td>
