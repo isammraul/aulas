@@ -642,15 +642,41 @@ export default function AulasAnalyzer() {
       }).filter(Boolean);
     }
 
-    // Filtro de estado (Inteligente: Basado en la fecha seleccionada o el primer día disponible)
+    // Filtro de estado (Inteligente: Basado en días específicos o frecuencias)
     if (results.dates.length > 0 && filterStatus !== 'todos') {
-      const selectedDateStr = filterDate === 'todos' ? results.dates[0].date : filterDate;
-      if (filterStatus === 'libres') {
-        filtered = filtered.filter(row => row[selectedDateStr] === 0);
-      } else if (filterStatus === 'ocupadas') {
-        filtered = filtered.filter(row => row[selectedDateStr] > 1);
-      } else if (filterStatus === 'disponibles') {
-        filtered = filtered.filter(row => row[selectedDateStr] === 1);
+      let targetDayNames = [];
+
+      if (filterDate === 'todos') {
+        // Por defecto, el primer día de los datos
+        targetDayNames = [results.dates[0].dayName];
+      } else if (filterDate === 'LUN-MIE-VIE') {
+        targetDayNames = ['LUN', 'MIE', 'VIE'];
+      } else if (filterDate === 'MAR-JUE') {
+        targetDayNames = ['MAR', 'JUE'];
+      } else if (filterDate === 'LUN-VIE') {
+        targetDayNames = ['LUN', 'MAR', 'MIE', 'JUE', 'VIE'];
+      } else {
+        // Un solo día (LUN, MAR, etc.)
+        targetDayNames = [filterDate];
+      }
+
+      // Encontrar todas las fechas que coinciden con los nombres de día seleccionados
+      const matchingDates = results.dates.filter(d => targetDayNames.includes(d.dayName));
+
+      if (matchingDates.length > 0) {
+        if (filterStatus === 'libres') {
+          // Libre en TODOS los días que coinciden (intersección)
+          filtered = filtered.filter(row => matchingDates.every(d => row[d.date] === 0));
+        } else if (filterStatus === 'ocupadas') {
+          // Ocupada (>1 clase) en AL MENOS UNO de los días que coinciden
+          filtered = filtered.filter(row => matchingDates.some(d => row[d.date] > 1));
+        } else if (filterStatus === 'disponibles') {
+          // Al menos una clase en total, pero nunca más de 1 por día
+          filtered = filtered.filter(row =>
+            matchingDates.some(d => row[d.date] === 1) &&
+            matchingDates.every(d => row[d.date] <= 1)
+          );
+        }
       }
     }
 
@@ -1034,19 +1060,24 @@ export default function AulasAnalyzer() {
                   <option value="ocupadas">Ocupadas</option>
                 </select>
 
-                {/* Filtro de Fecha (Solo si hay un estado seleccionado) */}
+                {/* Filtro de Frecuencia/Días (Solo si hay un estado seleccionado) */}
                 {filterStatus !== 'todos' && (
                   <select
                     value={filterDate}
                     onChange={(e) => setFilterDate(e.target.value)}
                     className="px-2 md:px-4 py-2 border border-indigo-300 rounded-lg bg-indigo-50 text-xs md:text-sm text-indigo-700 font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500 animate-in fade-in zoom-in duration-200"
                   >
-                    <option value="todos">Hoy ({results.dates[0]?.date})</option>
-                    {results.dates.slice(1).map((dateInfo, idx) => (
-                      <option key={idx} value={dateInfo.date}>
-                        {dateInfo.dayName} ({dateInfo.date})
-                      </option>
-                    ))}
+                    <option value="todos">Solo {results.dates[0]?.dayName}</option>
+                    <optgroup label="Días Individuales">
+                      {Array.from(new Set(results.dates.map(d => d.dayName))).map((day, idx) => (
+                        <option key={idx} value={day}>{day}</option>
+                      ))}
+                    </optgroup>
+                    <optgroup label="Frecuencias">
+                      <option value="LUN-MIE-VIE">LUN-MIE-VIE</option>
+                      <option value="MAR-JUE">MAR-JUE</option>
+                      <option value="LUN-VIE">LUN a VIE</option>
+                    </optgroup>
                   </select>
                 )}
 
