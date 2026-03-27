@@ -12,6 +12,7 @@ export default function AulasAnalyzer() {
   const [loadingStorage, setLoadingStorage] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('todos');
+  const [filterDate, setFilterDate] = useState('todos');
   const [showStats, setShowStats] = useState(false);
   const [gistId, setGistId] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -641,15 +642,15 @@ export default function AulasAnalyzer() {
       }).filter(Boolean);
     }
 
-    // Filtro de estado (Inteligente: Basado en el primer día disponible)
-    if (results.dates.length > 0) {
-      const firstDate = results.dates[0].date;
+    // Filtro de estado (Inteligente: Basado en la fecha seleccionada o el primer día disponible)
+    if (results.dates.length > 0 && filterStatus !== 'todos') {
+      const selectedDateStr = filterDate === 'todos' ? results.dates[0].date : filterDate;
       if (filterStatus === 'libres') {
-        filtered = filtered.filter(row => row[firstDate] === 0);
+        filtered = filtered.filter(row => row[selectedDateStr] === 0);
       } else if (filterStatus === 'ocupadas') {
-        filtered = filtered.filter(row => row[firstDate] > 1);
+        filtered = filtered.filter(row => row[selectedDateStr] > 1);
       } else if (filterStatus === 'disponibles') {
-        filtered = filtered.filter(row => row[firstDate] === 1);
+        filtered = filtered.filter(row => row[selectedDateStr] === 1);
       }
     }
 
@@ -1005,7 +1006,7 @@ export default function AulasAnalyzer() {
               )}
 
               {/* Controles y Filtros Simplificados */}
-              <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-3 mb-4 md:mb-6">
+              <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-4 md:mb-6">
                 {/* Búsqueda (Ocupa más espacio) */}
                 <div className="relative w-full md:col-span-2 lg:col-span-3">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -1021,14 +1022,33 @@ export default function AulasAnalyzer() {
                 {/* Filtro de Estado */}
                 <select
                   value={filterStatus}
-                  onChange={(e) => setFilterStatus(e.target.value)}
+                  onChange={(e) => {
+                    setFilterStatus(e.target.value);
+                    if (e.target.value === 'todos') setFilterDate('todos');
+                  }}
                   className="px-2 md:px-4 py-2 border border-gray-300 rounded-lg bg-white text-xs md:text-sm text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 w-full"
                 >
                   <option value="todos">Todas las Aulas</option>
-                  <option value="libres">Libres ({results.dates[0]?.date || 'Hoy'})</option>
-                  <option value="disponibles">Disponibles ({results.dates[0]?.date || 'Hoy'})</option>
-                  <option value="ocupadas">Ocupadas ({results.dates[0]?.date || 'Hoy'})</option>
+                  <option value="libres">Libres</option>
+                  <option value="disponibles">Disponibles</option>
+                  <option value="ocupadas">Ocupadas</option>
                 </select>
+
+                {/* Filtro de Fecha (Solo si hay un estado seleccionado) */}
+                {filterStatus !== 'todos' && (
+                  <select
+                    value={filterDate}
+                    onChange={(e) => setFilterDate(e.target.value)}
+                    className="px-2 md:px-4 py-2 border border-indigo-300 rounded-lg bg-indigo-50 text-xs md:text-sm text-indigo-700 font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500 animate-in fade-in zoom-in duration-200"
+                  >
+                    <option value="todos">Hoy ({results.dates[0]?.date})</option>
+                    {results.dates.slice(1).map((dateInfo, idx) => (
+                      <option key={idx} value={dateInfo.date}>
+                        {dateInfo.dayName} ({dateInfo.date})
+                      </option>
+                    ))}
+                  </select>
+                )}
 
                 {/* Filtro de Turno */}
                 <select
