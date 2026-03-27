@@ -697,11 +697,20 @@ export default function AulasAnalyzer() {
             <h1 className="text-2xl md:text-4xl font-bold text-gray-800 mb-2 flex items-center justify-center gap-3">
               <i className="fa-solid fa-chart-simple text-indigo-600"></i> Disponibilidad de Aulas
             </h1>
-            <p className="text-sm md:text-base text-gray-600">
+            <p className="text-sm md:text-base text-gray-600 flex items-center justify-center gap-2">
               Vista completa de ocupación por aula y día - ISAM
+              {!isAdmin && (
+                <button
+                  onClick={() => setShowLogin(true)}
+                  className="text-gray-400 hover:text-indigo-600 transition-colors"
+                  title="Acceso Administrador"
+                >
+                  <i className="fa-solid fa-user-gear"></i>
+                </button>
+              )}
             </p>
-            {isAdmin ? (
-              <div className="flex flex-col items-center gap-3">
+            {isAdmin && (
+              <div className="mt-3 flex flex-col items-center gap-3">
                 <div className="inline-block bg-yellow-100 border border-yellow-400 text-yellow-800 px-3 py-1.5 md:px-4 md:py-2 rounded-lg text-xs md:text-sm font-medium">
                   🔑 Modo Administrador
                 </div>
@@ -720,13 +729,6 @@ export default function AulasAnalyzer() {
                   </button>
                 </div>
               </div>
-            ) : (
-              <button
-                onClick={() => setShowLogin(true)}
-                className="mt-3 text-xs text-gray-400 hover:text-indigo-600 underline"
-              >
-                Acceso Admin
-              </button>
             )}
             {uploadDateTime && (
               <div className="mt-3 md:mt-4 flex flex-col items-center justify-center gap-3">
