@@ -140,6 +140,16 @@ export default function AulasAnalyzer() {
     }
   };
 
+  const rowsPerColumn = Math.ceil(aulas.length / 4) || 1;
+  const aulasColumns = Array.from({ length: 4 }, (_, colIndex) => {
+    const start = colIndex * rowsPerColumn;
+    const end = start + rowsPerColumn;
+    return aulas.slice(start, end).map((aula, rowIndex) => ({
+      aula,
+      index: start + rowIndex
+    }));
+  });
+
   const removeAllAulas = () => {
     if (window.confirm('¿Estás seguro de que quieres eliminar TODAS las aulas de la lista?')) {
       setAulas([]);
@@ -874,32 +884,36 @@ export default function AulasAnalyzer() {
                 </div>
               </div>
 
-              <div className="columns-4 md:columns-4 lg:columns-4 gap-2 max-h-96 overflow-y-auto p-2">
-                {aulas.map((aula, idx) => (
-                  <div
-                    key={idx}
-                    className={`flex items-center justify-between bg-white p-1 rounded-lg border shadow-sm h-12 md:h-12 w-full break-inside-avoid mb-2 ${dragIndex === idx ? 'opacity-80 border-indigo-300' : ''}`}
-                    draggable
-                    onDragStart={() => handleDragStartItem(idx)}
-                    onDragOver={handleDragOverItem}
-                    onDrop={() => handleDropItem(idx)}
-                  >
-                    <div className="flex items-center gap-2 truncate">
-                      <GripVertical className="w-4 h-4 text-gray-400 cursor-grab" />
-                      <span className="text-[11px] font-bold bg-indigo-50 text-indigo-600 w-5 h-5 flex items-center justify-center rounded-full flex-shrink-0">
-                        {idx + 1}
-                      </span>
-                      <span className="text-xs md:text-sm font-medium truncate">{aula}</span>
-                    </div>
-                    <div className="flex items-center">
-                      <button
-                        onClick={() => removeAula(aula)}
-                        className="text-red-500 hover:bg-red-50 p-1 rounded ml-1"
-                        title="Eliminar aula"
+              <div className="grid grid-cols-4 gap-2 max-h-96 overflow-y-auto p-2">
+                {aulasColumns.map((column, colIndex) => (
+                  <div key={colIndex} className="flex flex-col gap-2">
+                    {column.map(({ aula, index }) => (
+                      <div
+                        key={index}
+                        className={`flex items-center justify-between bg-white p-1 rounded-lg border shadow-sm h-12 md:h-12 w-full ${dragIndex === index ? 'opacity-80 border-indigo-300' : ''}`}
+                        draggable
+                        onDragStart={() => handleDragStartItem(index)}
+                        onDragOver={handleDragOverItem}
+                        onDrop={() => handleDropItem(index)}
                       >
-                        ✕
-                      </button>
-                    </div>
+                        <div className="flex items-center gap-2 truncate">
+                          <GripVertical className="w-4 h-4 text-gray-400 cursor-grab" />
+                          <span className="text-[11px] font-bold bg-indigo-50 text-indigo-600 w-5 h-5 flex items-center justify-center rounded-full flex-shrink-0">
+                            {index + 1}
+                          </span>
+                          <span className="text-xs md:text-sm font-medium truncate">{aula}</span>
+                        </div>
+                        <div className="flex items-center">
+                          <button
+                            onClick={() => removeAula(aula)}
+                            className="text-red-500 hover:bg-red-50 p-1 rounded ml-1"
+                            title="Eliminar aula"
+                          >
+                            ✕
+                          </button>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 ))}
               </div>
