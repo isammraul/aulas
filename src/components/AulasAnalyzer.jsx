@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Upload, Download, RefreshCw, Search, Filter, TrendingUp, Calendar, Share2, ArrowUp, ArrowDown } from 'lucide-react';
+import { Upload, Download, RefreshCw, Search, Filter, TrendingUp, Calendar, Share2, GripVertical } from 'lucide-react';
 import * as XLSX from 'xlsx';
 import Papa from 'papaparse';
 
@@ -882,6 +882,7 @@ export default function AulasAnalyzer() {
                     onDrop={() => handleDropItem(idx)}
                   >
                     <div className="flex items-center gap-2 truncate">
+                      <GripVertical className="w-4 h-4 text-gray-400 cursor-grab" />
                       <span className="text-xs font-bold bg-indigo-50 text-indigo-600 w-6 h-6 flex items-center justify-center rounded-full flex-shrink-0">
                         {idx + 1}
                       </span>
