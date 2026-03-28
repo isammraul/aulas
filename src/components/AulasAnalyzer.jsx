@@ -874,7 +874,7 @@ export default function AulasAnalyzer() {
                 </div>
               </div>
 
-              <div className="columns-3 gap-2 max-h-96 overflow-y-auto p-2">
+              <div className="columns-3 md:columns-3 lg:columns-3 gap-2 max-h-96 overflow-y-auto p-2">
                 {aulas.map((aula, idx) => (
                   <div
                     key={idx}
