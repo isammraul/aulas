@@ -1167,10 +1167,12 @@ export default function AulasAnalyzer() {
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 md:gap-3">
                     {stats.aulasMasUsadas.map((aula, idx) => (
                       <div key={idx} className="bg-white rounded-lg p-2 md:p-3 border border-yellow-300">
-                        <div className="text-lg md:text-xl font-bold text-yellow-600">#{idx + 1}</div>
-                        <div className="text-xs md:text-sm font-medium text-gray-700 truncate">{formatAulaName(aula.aula)}</div>
-                        <div className="text-base md:text-lg font-bold text-gray-900">{aula.totalClases}</div>
-                        <div className="text-[10px] md:text-xs text-gray-500">{aula.promedioDiario}/día</div>
+                        <div className="flex items-center justify-center gap-2">
+                          <div className="text-lg md:text-xl font-bold text-yellow-600">#{idx + 1}</div>
+                          <div className="text-xs md:text-sm font-medium text-gray-700 truncate">{formatAulaName(aula.aula)}</div>
+                          <div className="text-base md:text-lg font-bold text-gray-900">{aula.totalClases}</div>
+                          <div className="text-[10px] md:text-xs text-gray-500">{aula.promedioDiario}/día</div>
+                        </div>
                       </div>
                     ))}
                   </div>
