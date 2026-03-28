@@ -911,7 +911,7 @@ export default function AulasAnalyzer() {
                 <button
                   onClick={() => saveToGist(data, uploadDateTime, aulas)}
                   disabled={loading}
-                  className={`px-6 py-2 rounded font-medium shadow-md flex items-center gap-2 transition-all ${loading
+                  className={`rounded font-medium shadow-md inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2 transition-all ${loading
                     ? 'bg-gray-400 cursor-not-allowed text-white'
                     : 'bg-green-600 text-white hover:bg-green-700 active:scale-95'
                     }`}
@@ -925,7 +925,7 @@ export default function AulasAnalyzer() {
                 </button>
                 <button
                   onClick={() => setShowAulasManager(false)}
-                  className="bg-gray-200 text-gray-800 px-6 py-2 rounded font-medium hover:bg-gray-300"
+                  className="bg-gray-200 text-gray-800 rounded font-medium hover:bg-gray-300 inline-flex items-center gap-2 px-3 md:px-4 py-1.5 md:py-2"
                 >
                   Cerrar
                 </button>
