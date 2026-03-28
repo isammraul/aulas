@@ -871,11 +871,11 @@ export default function AulasAnalyzer() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-flow-col gap-3 max-h-96 overflow-y-auto p-2">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-flow-col gap-2 max-h-96 overflow-y-auto p-2">
                 {aulas.map((aula, idx) => (
                   <div
                     key={idx}
-                    className={`flex items-center justify-between bg-white p-2 rounded-lg border shadow-sm h-12 md:h-12 ${dragIndex === idx ? 'opacity-80 border-indigo-300' : ''}`}
+                    className={`flex items-center justify-between bg-white p-1 rounded-lg border shadow-sm h-12 md:h-12 ${dragIndex === idx ? 'opacity-80 border-indigo-300' : ''}`}
                     draggable
                     onDragStart={() => handleDragStartItem(idx)}
                     onDragOver={handleDragOverItem}
@@ -883,10 +883,10 @@ export default function AulasAnalyzer() {
                   >
                     <div className="flex items-center gap-2 truncate">
                       <GripVertical className="w-4 h-4 text-gray-400 cursor-grab" />
-                      <span className="text-xs font-bold bg-indigo-50 text-indigo-600 w-6 h-6 flex items-center justify-center rounded-full flex-shrink-0">
+                      <span className="text-[11px] font-bold bg-indigo-50 text-indigo-600 w-5 h-5 flex items-center justify-center rounded-full flex-shrink-0">
                         {idx + 1}
                       </span>
-                      <span className="text-sm font-medium truncate">{aula}</span>
+                      <span className="text-xs md:text-sm font-medium truncate">{aula}</span>
                     </div>
                     <div className="flex items-center">
                       <button
@@ -988,35 +988,35 @@ export default function AulasAnalyzer() {
             <div>
               {/* Estadísticas */}
               {showStats && stats && (
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 md:gap-4 mb-4 md:mb-6">
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-2 md:p-3">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-1 md:gap-2 mb-4 md:mb-6">
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-1 md:p-2">
                     <div className="flex items-center justify-center gap-2">
-                      <div className="text-xl md:text-2xl font-bold text-blue-900">{stats.totalAulas}</div>
-                      <div className="text-blue-600 text-xs md:text-sm font-medium">Total Aulas</div>
+                      <div className="text-lg md:text-xl font-bold text-blue-900">{stats.totalAulas}</div>
+                      <div className="text-blue-600 text-[11px] md:text-xs font-medium">Total Aulas</div>
                     </div>
                   </div>
-                  <div className="bg-green-50 border border-green-200 rounded-lg p-2 md:p-3">
+                  <div className="bg-green-50 border border-green-200 rounded-lg p-1 md:p-2">
                     <div className="flex items-center justify-center gap-2">
-                      <div className="text-xl md:text-2xl font-bold text-green-900">{stats.aulasLibres}</div>
-                      <div className="text-green-600 text-xs md:text-sm font-medium">Aulas Libres</div>
+                      <div className="text-lg md:text-xl font-bold text-green-900">{stats.aulasLibres}</div>
+                      <div className="text-green-600 text-[11px] md:text-xs font-medium">Aulas Libres</div>
                     </div>
                   </div>
-                  <div className="bg-red-50 border border-red-200 rounded-lg p-2 md:p-3">
+                  <div className="bg-red-50 border border-red-200 rounded-lg p-1 md:p-2">
                     <div className="flex items-center justify-center gap-2">
-                      <div className="text-xl md:text-2xl font-bold text-red-900">{stats.aulasOcupadas}</div>
-                      <div className="text-red-600 text-xs md:text-sm font-medium">Aulas Ocupadas</div>
+                      <div className="text-lg md:text-xl font-bold text-red-900">{stats.aulasOcupadas}</div>
+                      <div className="text-red-600 text-[11px] md:text-xs font-medium">Aulas Ocupadas</div>
                     </div>
                   </div>
-                  <div className="bg-purple-50 border border-purple-200 rounded-lg p-2 md:p-3">
+                  <div className="bg-purple-50 border border-purple-200 rounded-lg p-1 md:p-2">
                     <div className="flex items-center justify-center gap-2">
-                      <div className="text-xl md:text-2xl font-bold text-purple-900">{stats.totalClases}</div>
-                      <div className="text-purple-600 text-xs md:text-sm font-medium">Total Clases</div>
+                      <div className="text-lg md:text-xl font-bold text-purple-900">{stats.totalClases}</div>
+                      <div className="text-purple-600 text-[11px] md:text-xs font-medium">Total Clases</div>
                     </div>
                   </div>
-                  <div className="bg-orange-50 border border-orange-200 rounded-lg p-2 md:p-3 col-span-2 md:col-span-1">
+                  <div className="bg-orange-50 border border-orange-200 rounded-lg p-1 md:p-2 col-span-2 md:col-span-1">
                     <div className="flex items-center justify-center gap-2">
-                      <div className="text-xl md:text-2xl font-bold text-orange-900">{stats.promedioClasesPorAula}</div>
-                      <div className="text-orange-600 text-xs md:text-sm font-medium">Promedio/Aula</div>
+                      <div className="text-lg md:text-xl font-bold text-orange-900">{stats.promedioClasesPorAula}</div>
+                      <div className="text-orange-600 text-[11px] md:text-xs font-medium">Promedio/Aula</div>
                     </div>
                   </div>
                 </div>
@@ -1172,14 +1172,14 @@ export default function AulasAnalyzer() {
                     <TrendingUp className="w-4 h-4 md:w-5 md:h-5" />
                     Top 5 Aulas Más Usadas
                   </h3>
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 md:gap-3">
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-1 md:gap-2">
                     {stats.aulasMasUsadas.map((aula, idx) => (
-                      <div key={idx} className="bg-white rounded-lg p-2 md:p-3 border border-yellow-300">
+                      <div key={idx} className="bg-white rounded-lg p-1 md:p-2 border border-yellow-300">
                         <div className="flex items-center justify-center gap-2">
-                          <div className="text-lg md:text-xl font-bold text-yellow-600">#{idx + 1}</div>
-                          <div className="text-xs md:text-sm font-medium text-gray-700 truncate">{formatAulaName(aula.aula)}</div>
-                          <div className="text-base md:text-lg font-bold text-gray-900">{aula.totalClases}</div>
-                          <div className="text-[10px] md:text-xs text-gray-500">{aula.promedioDiario}/día</div>
+                          <div className="text-base md:text-lg font-bold text-yellow-600">#{idx + 1}</div>
+                          <div className="text-[11px] md:text-xs font-medium text-gray-700 truncate">{formatAulaName(aula.aula)}</div>
+                          <div className="text-sm md:text-base font-bold text-gray-900">{aula.totalClases}</div>
+                          <div className="text-[9px] md:text-[11px] text-gray-500">{aula.promedioDiario}/día</div>
                         </div>
                       </div>
                     ))}
