@@ -16,6 +16,7 @@ export default function AulasAnalyzer() {
   const [gistId, setGistId] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [dragIndex, setDragIndex] = useState(null);
 
   // ID del Gist principal
   const MAIN_GIST_ID = '4eef79d272bdff63e7018c1c9803eb39';
@@ -116,6 +117,23 @@ export default function AulasAnalyzer() {
     updatedAulas[index] = updatedAulas[newIndex];
     updatedAulas[newIndex] = temp;
 
+    setAulas(updatedAulas);
+    if (data.length > 0) {
+      analyzeData(data, selectedTurno, updatedAulas);
+    }
+  };
+  const handleDragStartItem = (index) => {
+    setDragIndex(index);
+  };
+  const handleDragOverItem = (e) => {
+    e.preventDefault();
+  };
+  const handleDropItem = (index) => {
+    if (dragIndex === null || dragIndex === index) return;
+    const updatedAulas = [...aulas];
+    const [moved] = updatedAulas.splice(dragIndex, 1);
+    updatedAulas.splice(index, 0, moved);
+    setDragIndex(null);
     setAulas(updatedAulas);
     if (data.length > 0) {
       analyzeData(data, selectedTurno, updatedAulas);
@@ -709,27 +727,25 @@ export default function AulasAnalyzer() {
                 </button>
               )}
             </p>
-            {isAdmin && (
-              <div className="mt-3 flex flex-col items-center gap-3">
-                <div className="inline-block bg-yellow-100 border border-yellow-400 text-yellow-800 px-3 py-1.5 md:px-4 md:py-2 rounded-lg text-xs md:text-sm font-medium">
-                  🔑 Modo Administrador
-                </div>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => setShowAulasManager(!showAulasManager)}
-                    className="text-xs bg-indigo-600 text-white px-3 py-1.5 rounded-lg hover:bg-indigo-700"
-                  >
-                    {showAulasManager ? 'Ver Disponibilidad' : 'Gestionar Aulas'}
-                  </button>
-                  <button
-                    onClick={handleLogout}
-                    className="text-xs bg-red-100 text-red-700 px-3 py-1.5 rounded-lg hover:bg-red-200"
-                  >
-                    Salir
-                  </button>
-                </div>
-              </div>
-            )}
+             {isAdmin && (
+               <div className="mt-3 flex items-center justify-center gap-2 flex-wrap">
+                 <div className="inline-block bg-yellow-100 border border-yellow-400 text-yellow-800 px-3 py-1.5 md:px-4 md:py-2 rounded-lg text-xs md:text-sm font-medium">
+                   🔑 Modo Administrador
+                 </div>
+                 <button
+                   onClick={() => setShowAulasManager(!showAulasManager)}
+                   className="text-xs bg-indigo-600 text-white px-3 py-1.5 rounded-lg hover:bg-indigo-700"
+                 >
+                   Gestionar Aulas
+                 </button>
+                 <button
+                   onClick={handleLogout}
+                   className="text-xs bg-red-100 text-red-700 px-3 py-1.5 rounded-lg hover:bg-red-200"
+                 >
+                   Salir
+                 </button>
+               </div>
+             )}
             {uploadDateTime && (
               <div className="mt-3 md:mt-4 flex flex-col items-center justify-center gap-3">
                 {/* Fila Única: Fecha y Botones de Acción */}
@@ -857,7 +873,14 @@ export default function AulasAnalyzer() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 max-h-96 overflow-y-auto p-2">
                 {aulas.map((aula, idx) => (
-                  <div key={idx} className="flex items-center justify-between bg-white p-3 rounded-lg border shadow-sm">
+                  <div
+                    key={idx}
+                    className={`flex items-center justify-between bg-white p-3 rounded-lg border shadow-sm ${dragIndex === idx ? 'opacity-80 border-indigo-300' : ''}`}
+                    draggable
+                    onDragStart={() => handleDragStartItem(idx)}
+                    onDragOver={handleDragOverItem}
+                    onDrop={() => handleDropItem(idx)}
+                  >
                     <div className="flex items-center gap-2 truncate">
                       <span className="text-xs font-bold bg-indigo-50 text-indigo-600 w-6 h-6 flex items-center justify-center rounded-full flex-shrink-0">
                         {idx + 1}
