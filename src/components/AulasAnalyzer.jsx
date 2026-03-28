@@ -875,7 +875,7 @@ export default function AulasAnalyzer() {
                 {aulas.map((aula, idx) => (
                   <div
                     key={idx}
-                    className={`flex items-center justify-between bg-white p-2 rounded-lg border shadow-sm ${dragIndex === idx ? 'opacity-80 border-indigo-300' : ''}`}
+                    className={`flex items-center justify-between bg-white p-2 rounded-lg border shadow-sm h-12 md:h-12 ${dragIndex === idx ? 'opacity-80 border-indigo-300' : ''}`}
                     draggable
                     onDragStart={() => handleDragStartItem(idx)}
                     onDragOver={handleDragOverItem}
