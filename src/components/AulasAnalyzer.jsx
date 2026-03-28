@@ -729,20 +729,20 @@ export default function AulasAnalyzer() {
             </p>
              {isAdmin && (
                <div className="mt-3 flex items-center justify-center gap-2 flex-wrap">
-                 <div className="inline-flex items-center gap-2 bg-yellow-100 border border-yellow-400 text-yellow-800 rounded-lg text-xs md:text-sm font-medium h-9 md:h-10 px-3">
+                 <div className="inline-flex items-center gap-2 bg-yellow-100 border border-yellow-400 text-yellow-800 rounded-lg text-xs md:text-sm font-medium px-3 md:px-4 py-1.5 md:py-2">
                    <i className="fa-solid fa-key"></i>
                    Modo Administrador
                  </div>
                  <button
                    onClick={() => setShowAulasManager(!showAulasManager)}
-                   className="inline-flex items-center gap-2 text-xs bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 h-9 md:h-10 px-3"
+                   className="inline-flex items-center gap-2 text-xs bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 px-3 md:px-4 py-1.5 md:py-2"
                  >
                    <i className="fa-solid fa-screwdriver-wrench"></i>
                    Gestionar Aulas
                  </button>
                  <button
                    onClick={handleLogout}
-                   className="inline-flex items-center gap-2 text-xs bg-red-100 text-red-700 rounded-lg hover:bg-red-200 h-9 md:h-10 px-3"
+                   className="inline-flex items-center gap-2 text-xs bg-red-100 text-red-700 rounded-lg hover:bg-red-200 px-3 md:px-4 py-1.5 md:py-2"
                  >
                    <i className="fa-solid fa-right-from-bracket"></i>
                    Salir
@@ -860,13 +860,13 @@ export default function AulasAnalyzer() {
                   <div className="flex flex-col gap-1">
                     <button
                       onClick={addAula}
-                      className="bg-indigo-600 text-white px-4 py-2 rounded font-medium hover:bg-indigo-700 text-sm h-9"
+                      className="bg-indigo-600 text-white px-4 md:px-4 py-1.5 md:py-2 rounded font-medium hover:bg-indigo-700 text-sm"
                     >
                       Agregar / Pegar
                     </button>
                     <button
                       onClick={removeAllAulas}
-                      className="bg-red-50 text-red-600 border border-red-200 px-4 py-2 rounded font-medium hover:bg-red-100 text-sm h-9"
+                      className="bg-red-50 text-red-600 border border-red-200 px-4 md:px-4 py-1.5 md:py-2 rounded font-medium hover:bg-red-100 text-sm"
                     >
                       Eliminar Todas
                     </button>
