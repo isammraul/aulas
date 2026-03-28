@@ -982,31 +982,31 @@ export default function AulasAnalyzer() {
               {showStats && stats && (
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 md:gap-4 mb-4 md:mb-6">
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-2 md:p-3">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-center gap-2">
                       <div className="text-xl md:text-2xl font-bold text-blue-900">{stats.totalAulas}</div>
                       <div className="text-blue-600 text-xs md:text-sm font-medium">Total Aulas</div>
                     </div>
                   </div>
                   <div className="bg-green-50 border border-green-200 rounded-lg p-2 md:p-3">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-center gap-2">
                       <div className="text-xl md:text-2xl font-bold text-green-900">{stats.aulasLibres}</div>
                       <div className="text-green-600 text-xs md:text-sm font-medium">Aulas Libres</div>
                     </div>
                   </div>
                   <div className="bg-red-50 border border-red-200 rounded-lg p-2 md:p-3">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-center gap-2">
                       <div className="text-xl md:text-2xl font-bold text-red-900">{stats.aulasOcupadas}</div>
                       <div className="text-red-600 text-xs md:text-sm font-medium">Aulas Ocupadas</div>
                     </div>
                   </div>
                   <div className="bg-purple-50 border border-purple-200 rounded-lg p-2 md:p-3">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-center gap-2">
                       <div className="text-xl md:text-2xl font-bold text-purple-900">{stats.totalClases}</div>
                       <div className="text-purple-600 text-xs md:text-sm font-medium">Total Clases</div>
                     </div>
                   </div>
                   <div className="bg-orange-50 border border-orange-200 rounded-lg p-2 md:p-3 col-span-2 md:col-span-1">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-center gap-2">
                       <div className="text-xl md:text-2xl font-bold text-orange-900">{stats.promedioClasesPorAula}</div>
                       <div className="text-orange-600 text-xs md:text-sm font-medium">Promedio/Aula</div>
                     </div>
