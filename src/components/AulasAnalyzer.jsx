@@ -874,11 +874,11 @@ export default function AulasAnalyzer() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-2 max-h-96 overflow-y-auto p-2">
+              <div className="columns-3 gap-2 max-h-96 overflow-y-auto p-2">
                 {aulas.map((aula, idx) => (
                   <div
                     key={idx}
-                    className={`flex items-center justify-between bg-white p-1 rounded-lg border shadow-sm h-12 md:h-12 ${dragIndex === idx ? 'opacity-80 border-indigo-300' : ''}`}
+                    className={`flex items-center justify-between bg-white p-1 rounded-lg border shadow-sm h-12 md:h-12 w-full break-inside-avoid mb-2 ${dragIndex === idx ? 'opacity-80 border-indigo-300' : ''}`}
                     draggable
                     onDragStart={() => handleDragStartItem(idx)}
                     onDragOver={handleDragOverItem}
