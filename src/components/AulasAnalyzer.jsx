@@ -729,20 +729,20 @@ export default function AulasAnalyzer() {
             </p>
              {isAdmin && (
                 <div className="mt-3 flex items-center justify-center gap-2 flex-wrap">
-                 <div className="inline-flex items-center gap-2 bg-yellow-100 border border-yellow-400 text-yellow-800 rounded-lg text-xs md:text-sm font-medium px-3 md:px-4 h-9 md:h-10">
+                 <div className="inline-flex items-center gap-2 bg-yellow-100 border border-yellow-400 text-yellow-800 rounded-lg text-xs md:text-sm font-medium px-3 md:px-4 h-8 md:h-9">
                    <i className="fa-solid fa-key"></i>
                    Modo Administrador
                  </div>
                  <button
                    onClick={() => setShowAulasManager(!showAulasManager)}
-                   className="inline-flex items-center gap-2 text-xs bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 px-3 md:px-4 h-9 md:h-10"
+                  className="inline-flex items-center gap-2 text-xs bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 px-3 md:px-4 h-8 md:h-9"
                  >
                    <i className="fa-solid fa-screwdriver-wrench"></i>
                    Gestionar Aulas
                  </button>
                  <button
                    onClick={handleLogout}
-                   className="inline-flex items-center gap-2 text-xs bg-red-100 text-red-700 rounded-lg hover:bg-red-200 px-3 md:px-4 h-9 md:h-10"
+                  className="inline-flex items-center gap-2 text-xs bg-red-100 text-red-700 rounded-lg hover:bg-red-200 px-3 md:px-4 h-8 md:h-9"
                  >
                    <i className="fa-solid fa-right-from-bracket"></i>
                    Salir
@@ -753,7 +753,7 @@ export default function AulasAnalyzer() {
               <div className="mt-3 md:mt-4 flex flex-col items-center justify-center gap-3">
                 {/* Fila Única: Fecha y Botones de Acción */}
                 <div className="flex items-center justify-center gap-2 md:gap-3 flex-wrap px-2">
-                  <div className="inline-flex items-center bg-indigo-100 text-indigo-800 px-2 md:px-4 h-9 md:h-10 rounded-lg text-xs md:text-sm font-medium max-w-full overflow-hidden">
+                  <div className="inline-flex items-center bg-indigo-100 text-indigo-800 px-2 md:px-4 h-8 md:h-9 rounded-lg text-xs md:text-sm font-medium max-w-full overflow-hidden">
                     <Calendar className="w-3 h-3 md:w-4 md:h-4 inline mr-1 md:mr-2" />
                     <span className="hidden sm:inline">Actualizado: </span>
                     <span className="text-[10px] md:text-xs lg:text-sm">{uploadDateTime}</span>
@@ -765,7 +765,7 @@ export default function AulasAnalyzer() {
                         onDragOver={handleDragOver}
                         onDragLeave={handleDragLeave}
                         onDrop={handleDrop}
-                      className={`flex items-center justify-center gap-1.5 md:gap-2 px-3 md:px-4 h-9 md:h-10 rounded-lg transition-all cursor-pointer text-xs md:text-sm font-medium border-2 border-dashed ${isDragging
+                      className={`flex items-center justify-center gap-1.5 md:gap-2 px-3 md:px-4 h-8 md:h-9 rounded-lg transition-all cursor-pointer text-xs md:text-sm font-medium border-2 border-dashed ${isDragging
                           ? 'bg-indigo-100 border-indigo-600 scale-105 shadow-lg text-indigo-700'
                           : 'bg-indigo-600 border-transparent text-white hover:bg-indigo-700'
                           }`}
@@ -782,7 +782,7 @@ export default function AulasAnalyzer() {
 
                       <button
                         onClick={exportToExcel}
-                        className="flex items-center justify-center gap-1.5 md:gap-2 px-3 md:px-4 h-9 md:h-10 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-xs md:text-sm font-medium"
+                        className="flex items-center justify-center gap-1.5 md:gap-2 px-3 md:px-4 h-8 md:h-9 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-xs md:text-sm font-medium"
                       >
                         <Download className="w-3.5 h-3.5 md:w-4 md:h-4" />
                         <span>Exportar</span>
@@ -790,7 +790,7 @@ export default function AulasAnalyzer() {
 
                       <button
                         onClick={() => setShowStats(!showStats)}
-                        className={`flex items-center justify-center gap-1.5 md:gap-2 px-3 md:px-4 h-9 md:h-10 rounded-lg transition-all text-xs md:text-sm font-medium ${showStats
+                        className={`flex items-center justify-center gap-1.5 md:gap-2 px-3 md:px-4 h-8 md:h-9 rounded-lg transition-all text-xs md:text-sm font-medium ${showStats
                           ? 'bg-purple-600 text-white shadow-lg hover:bg-purple-700'
                           : 'bg-purple-50 text-purple-400 border border-purple-200 hover:bg-purple-100 hover:text-purple-600'
                           }`}
@@ -860,13 +860,13 @@ export default function AulasAnalyzer() {
                   <div className="flex flex-col gap-1">
                     <button
                       onClick={addAula}
-                      className="bg-indigo-600 text-white px-4 md:px-4 h-9 md:h-10 rounded font-medium hover:bg-indigo-700 text-sm"
+                      className="bg-indigo-600 text-white px-4 md:px-4 h-8 md:h-9 rounded font-medium hover:bg-indigo-700 text-sm"
                     >
                       Agregar / Pegar
                     </button>
                     <button
                       onClick={removeAllAulas}
-                      className="bg-red-50 text-red-600 border border-red-200 px-4 md:px-4 h-9 md:h-10 rounded font-medium hover:bg-red-100 text-sm"
+                      className="bg-red-50 text-red-600 border border-red-200 px-4 md:px-4 h-8 md:h-9 rounded font-medium hover:bg-red-100 text-sm"
                     >
                       Eliminar Todas
                     </button>
@@ -911,7 +911,7 @@ export default function AulasAnalyzer() {
                 <button
                   onClick={() => saveToGist(data, uploadDateTime, aulas)}
                   disabled={loading}
-                  className={`rounded font-medium shadow-md inline-flex items-center gap-2 px-3 md:px-4 h-9 md:h-10 transition-all ${loading
+                  className={`rounded font-medium shadow-md inline-flex items-center gap-2 px-3 md:px-4 h-8 md:h-9 transition-all ${loading
                     ? 'bg-gray-400 cursor-not-allowed text-white'
                     : 'bg-green-600 text-white hover:bg-green-700 active:scale-95'
                     }`}
@@ -925,7 +925,7 @@ export default function AulasAnalyzer() {
                 </button>
                 <button
                   onClick={() => setShowAulasManager(false)}
-                  className="bg-gray-200 text-gray-800 rounded font-medium hover:bg-gray-300 inline-flex items-center gap-2 px-3 md:px-4 h-9 md:h-10"
+                  className="bg-gray-200 text-gray-800 rounded font-medium hover:bg-gray-300 inline-flex items-center gap-2 px-3 md:px-4 h-8 md:h-9"
                 >
                   Cerrar
                 </button>
