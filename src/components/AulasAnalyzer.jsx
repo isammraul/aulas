@@ -875,7 +875,7 @@ export default function AulasAnalyzer() {
                 {aulas.map((aula, idx) => (
                   <div
                     key={idx}
-                    className={`flex items-center justify-between bg-white p-3 rounded-lg border shadow-sm ${dragIndex === idx ? 'opacity-80 border-indigo-300' : ''}`}
+                    className={`flex items-center justify-between bg-white p-2 rounded-lg border shadow-sm ${dragIndex === idx ? 'opacity-80 border-indigo-300' : ''}`}
                     draggable
                     onDragStart={() => handleDragStartItem(idx)}
                     onDragOver={handleDragOverItem}
@@ -887,23 +887,7 @@ export default function AulasAnalyzer() {
                       </span>
                       <span className="text-sm font-medium truncate">{aula}</span>
                     </div>
-                    <div className="flex items-center gap-1">
-                      <button
-                        onClick={() => moveAula(idx, -1)}
-                        disabled={idx === 0}
-                        className="text-gray-400 hover:text-indigo-600 p-1 rounded disabled:opacity-20"
-                        title="Subir"
-                      >
-                        <ArrowUp className="w-4 h-4" />
-                      </button>
-                      <button
-                        onClick={() => moveAula(idx, 1)}
-                        disabled={idx === aulas.length - 1}
-                        className="text-gray-400 hover:text-indigo-600 p-1 rounded disabled:opacity-20"
-                        title="Bajar"
-                      >
-                        <ArrowDown className="w-4 h-4" />
-                      </button>
+                    <div className="flex items-center">
                       <button
                         onClick={() => removeAula(aula)}
                         className="text-red-500 hover:bg-red-50 p-1 rounded ml-1"
