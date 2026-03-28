@@ -729,19 +729,22 @@ export default function AulasAnalyzer() {
             </p>
              {isAdmin && (
                <div className="mt-3 flex items-center justify-center gap-2 flex-wrap">
-                 <div className="inline-block bg-yellow-100 border border-yellow-400 text-yellow-800 px-3 py-1.5 md:px-4 md:py-2 rounded-lg text-xs md:text-sm font-medium">
-                   🔑 Modo Administrador
+                 <div className="inline-flex items-center gap-2 bg-yellow-100 border border-yellow-400 text-yellow-800 rounded-lg text-xs md:text-sm font-medium h-9 md:h-10 px-3">
+                   <i className="fa-solid fa-key"></i>
+                   Modo Administrador
                  </div>
                  <button
                    onClick={() => setShowAulasManager(!showAulasManager)}
-                   className="text-xs bg-indigo-600 text-white px-3 py-1.5 rounded-lg hover:bg-indigo-700"
+                   className="inline-flex items-center gap-2 text-xs bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 h-9 md:h-10 px-3"
                  >
+                   <i className="fa-solid fa-screwdriver-wrench"></i>
                    Gestionar Aulas
                  </button>
                  <button
                    onClick={handleLogout}
-                   className="text-xs bg-red-100 text-red-700 px-3 py-1.5 rounded-lg hover:bg-red-200"
+                   className="inline-flex items-center gap-2 text-xs bg-red-100 text-red-700 rounded-lg hover:bg-red-200 h-9 md:h-10 px-3"
                  >
+                   <i className="fa-solid fa-right-from-bracket"></i>
                    Salir
                  </button>
                </div>
@@ -839,31 +842,31 @@ export default function AulasAnalyzer() {
 
           {/* Classroom Manager View */}
           {showAulasManager && isAdmin && (
-            <div className="mb-8 p-6 bg-gray-50 border border-gray-200 rounded-xl">
-              <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
-                🏠 Gestión de Aulas
+            <div className="mb-6 p-4 bg-gray-50 border border-gray-200 rounded-xl">
+              <h2 className="text-xl font-bold mb-2 flex items-center gap-2">
+                <i className="fa-solid fa-house text-indigo-600"></i> Gestión de Aulas
               </h2>
-              <div className="flex flex-col gap-2 mb-6">
+              <div className="flex flex-col gap-1 mb-3">
                 <label className="text-sm text-gray-600 font-medium">
                   Introduce uno o varios correos (puedes pegarlos separados por comas o saltos de línea):
                 </label>
-                <div className="flex gap-2">
+                <div className="flex gap-1">
                   <textarea
                     placeholder="ejemplo1@gmail.com, ejemplo2@gmail.com..."
                     value={newAulaEmail}
                     onChange={(e) => setNewAulaEmail(e.target.value)}
-                    className="flex-1 p-2 border rounded min-h-[100px] text-sm"
+                    className="flex-1 p-2 border rounded min-h-[90px] text-sm"
                   />
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-1">
                     <button
                       onClick={addAula}
-                      className="bg-indigo-600 text-white px-6 py-2 rounded font-medium hover:bg-indigo-700 text-sm"
+                      className="bg-indigo-600 text-white px-4 py-2 rounded font-medium hover:bg-indigo-700 text-sm h-9"
                     >
                       Agregar / Pegar
                     </button>
                     <button
                       onClick={removeAllAulas}
-                      className="bg-red-50 text-red-600 border border-red-200 px-6 py-2 rounded font-medium hover:bg-red-100 text-sm"
+                      className="bg-red-50 text-red-600 border border-red-200 px-4 py-2 rounded font-medium hover:bg-red-100 text-sm h-9"
                     >
                       Eliminar Todas
                     </button>
